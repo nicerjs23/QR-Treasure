@@ -6,8 +6,9 @@ declare module 'styled-components' {
       font: {
         white: string;
         black: string;
-        textCharcoal: string;
-        textRed: string;
+        charcoal: string;
+        red: string;
+        coralRed: string;
       };
       background: {
         white: string;
@@ -23,6 +24,8 @@ declare module 'styled-components' {
         green: string;
         gold: string;
         coralRed: string;
+        brown: string;
+        charcoal: string;
       };
     };
     fonts: {
@@ -30,8 +33,10 @@ declare module 'styled-components' {
       subtitle30: any;
       big20: any;
       nomal18: any;
+      nomal16: any;
       detail14: any;
-      small12: any;
+      small12: any; 
+      small10: any;
     };
   }
 }

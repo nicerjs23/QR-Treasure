@@ -26,6 +26,7 @@ purple:"#252130",
 lightPurple:"#E2DAF9",
   white: "#ffffff",
   black: "#000000",
+  brown:"#402B2D",
 
 };
 const theme = {
@@ -33,8 +34,9 @@ const theme = {
     font: {
       white: colorScale.white,
       black: colorScale.black,
-      textCharcoal:colorScale.textCharcoal,
-      textRed:colorScale.textRed,
+      charcoal:colorScale.textCharcoal,
+      red:colorScale.textRed,
+      coralRed:colorScale.coralRed,
     },
 
     background: {
@@ -52,6 +54,9 @@ const theme = {
     green:colorScale.green,
     gold:colorScale.gold,
     coralRed:colorScale.coralRed,
+    brown:colorScale.brown,
+    charcoal:colorScale.textCharcoal,
+    
   },
    
     },
@@ -62,8 +67,10 @@ const theme = {
     subtitle30: fontGenerator("OmyuPretty", "1.875rem", "400", "1.875rem", "-0.03125rem"),
     big20: fontGenerator("OmyuPretty", "1.25rem", "400", "normal", "-0.03125rem"),
     nomal18: fontGenerator("OmyuPretty", "1.125rem", "400", "1.125rem", "-0.03125rem"),
+    nomal16: fontGenerator("OmyuPretty", "1rem", "400", "normal", "-0.03125rem"),
     detail14: fontGenerator("OmyuPretty", "0.875rem", "400", "normal", "-0.03125rem"),
     small12: fontGenerator("OmyuPretty", "0.75rem", "400", "normal", "-0.03125rem"),
+    small10: fontGenerator("OmyuPretty", "1.0625rem", "400", "normal", "-0.03125rem"),
   },
 };
 
