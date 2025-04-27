@@ -1,6 +1,6 @@
-import 'styled-components';
+import "styled-components";
 
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       font: {
@@ -31,11 +31,12 @@ declare module 'styled-components' {
     fonts: {
       logo50: any;
       subtitle30: any;
+      subtitle32: any;
       big20: any;
       nomal18: any;
       nomal16: any;
       detail14: any;
-      small12: any; 
+      small12: any;
       small10: any;
     };
   }

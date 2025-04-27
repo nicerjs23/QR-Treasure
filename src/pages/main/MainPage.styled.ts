@@ -5,6 +5,13 @@ export const MainWrapper = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
-  flex-grow: 1; /* 가능한 공간을 모두 차지하도록 설정 */
+`;
 
+export const MainContentWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+  margin-top: 20px; //로고윗네임에서 마진바텀이 14로돼있으니 추가로간격벌림
 `;

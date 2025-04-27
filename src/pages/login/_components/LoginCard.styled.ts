@@ -5,6 +5,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 width: 88%;
+max-width: 400px;//로그인카드 너무 길어지는거 방지 
 height: 124px;
 
 border-radius: 0.3125rem;

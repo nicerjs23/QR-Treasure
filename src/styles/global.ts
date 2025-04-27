@@ -74,7 +74,14 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
 
 `;
 
