@@ -9,6 +9,8 @@ import LoginPage from "@pages/login/LoginPage";
 import TreasureListPage from "@pages/treasureList/TreasureListPage";
 import MyTreasurePage from "@pages/myTreasure/MyTreasurePage";
 import TeamLankPage from "@pages/teamLank/TeamLankPage";
+import QRTreasurePage from "@pages/qrTreasure/QRTreasurePage";
+import FindQRTreasurePage from "@pages/qrTreasure/FindQRTreasurePage";
 
 const router = createBrowserRouter([
   // { path: "/", children: [{ path: "", element: <LoginPage /> }] },
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
       { path: "treasurelist", element: <TreasureListPage /> },
       { path: "mytreasure", element: <MyTreasurePage /> },
       { path: "team", element: <TeamLankPage /> },
+      { path: "qr", element: <QRTreasurePage /> },
+      { path: "qrfind", element: <FindQRTreasurePage /> },
     ],
   },
 ]);
