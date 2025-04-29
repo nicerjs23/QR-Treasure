@@ -3,8 +3,11 @@ import { useState, useEffect } from "react"; // useEffect 추가
 import HeaderKeyIcon from "@assets/icons/headerKeyIcon.svg";
 
 const TreasureHeader = () => {
-  const [foundCount, setFoundCount] = useState<number>(10); // 초기값 설정
-  const [totalCount, setTotalCount] = useState<number>(50); // 기본값 설정
+  const [foundCount] = useState<number>(10); // setFoundCount 제거 배포오류나서 아래코드주석함
+  const [totalCount] = useState<number>(50); // setTotalCount 제거
+
+  //const [foundCount, setFoundCount] = useState<number>(10); // 초기값 설정
+  //const [totalCount, setTotalCount] = useState<number>(50); // 기본값 설정
   // 나중에 Firebase에서 데이터 가져오는 로직을 추가할 수 있습니다.
   useEffect(() => {
     // 예: Firebase에서 데이터 가져오기

@@ -1,8 +1,6 @@
 import * as S from "./ListCard.styled";
 import F5Icon from "@assets/icons/f5.svg";
 
-import { useState } from "react";
-
 interface ListCardProps {
   headerTitle: string;
   index1: string;
