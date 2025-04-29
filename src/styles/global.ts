@@ -4,7 +4,7 @@ const GlobalStyle = createGlobalStyle`
 // 폰트설정
 @font-face {
     font-family:"OmyuPretty";
-    src: url("public/fonts/omyu-pretty.ttf");
+    src: url("/fonts/omyu-pretty.ttf");
 }
 
 // 초기 html 설정
