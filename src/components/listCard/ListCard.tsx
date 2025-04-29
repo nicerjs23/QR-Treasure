@@ -1,6 +1,8 @@
 import * as S from "./ListCard.styled";
 import F5Icon from "@assets/icons/f5.svg";
 
+import { useState } from "react";
+
 interface ListCardProps {
   headerTitle: string;
   index1: string;
@@ -16,11 +18,21 @@ const ListCard = ({
   index3,
   children,
 }: ListCardProps) => {
+  const handleF5Click = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const imgElement = event.currentTarget.querySelector("img");
+    if (imgElement && !imgElement.classList.contains("animate")) {
+      imgElement.classList.add("animate");
+      setTimeout(() => {
+        imgElement.classList.remove("animate");
+      }, 1000); // 애니메이션 지속 시간에 맞춰 조정
+    }
+  };
+
   return (
     <S.CardWrapper>
       <S.CardHeader>
         <S.CardHeaderText>{headerTitle}</S.CardHeaderText>
-        <S.F5Btn>
+        <S.F5Btn onClick={handleF5Click}>
           <img src={F5Icon} alt="f5ICon" />
         </S.F5Btn>
       </S.CardHeader>

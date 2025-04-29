@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const CardWrapper = styled.div`
   display: flex;
@@ -21,11 +21,26 @@ export const CardHeaderText = styled.div`
   ${({ theme }) => theme.fonts.big20};
   color: ${({ theme }) => theme.colors.font.white};
 `;
+// 키프레임 애니메이션 정의
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const F5Btn = styled.button`
   display: flex;
   width: 18px;
   height: 18px;
+
+  img {
+    &.animate {
+      animation: ${rotate} 1s forwards;
+    }
+  }
 `;
 
 export const CardBody = styled.div`
