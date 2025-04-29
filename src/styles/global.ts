@@ -23,7 +23,7 @@ body {
 	width: 100%;
 	max-width: 540px;
 
-	min-height: 100vh;
+	min-height: calc(var(--vh, 1vh) * 100);;
 
 	overflow-x: hidden;
 
