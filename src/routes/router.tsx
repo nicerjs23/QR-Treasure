@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 // components
 import DefaultLayout from "@layout/DefaultLayout";
-
+import ProtectedLayout from "@layout/ProtectedLayout";
 // pages
 import MainPage from "@pages/main/MainPage";
 import LoginPage from "@pages/login/LoginPage";
@@ -19,12 +19,17 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { path: "", element: <LoginPage /> },
-      { path: "home", element: <MainPage /> },
-      { path: "treasurelist", element: <TreasureListPage /> },
-      { path: "mytreasure", element: <MyTreasurePage /> },
-      { path: "team", element: <TeamLankPage /> },
-      { path: "qr", element: <QRTreasurePage /> },
-      { path: "qrfind", element: <FindQRTreasurePage /> },
+      {
+        element: <ProtectedLayout />,
+        children: [
+          { path: "home", element: <MainPage /> },
+          { path: "treasurelist", element: <TreasureListPage /> },
+          { path: "mytreasure", element: <MyTreasurePage /> },
+          { path: "team", element: <TeamLankPage /> },
+          { path: "qr", element: <QRTreasurePage /> },
+          { path: "qrfind", element: <FindQRTreasurePage /> },
+        ],
+      },
     ],
   },
 ]);
