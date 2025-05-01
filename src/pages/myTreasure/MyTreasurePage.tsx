@@ -4,6 +4,7 @@ import LogoWithName from "@components/mainLogo/LogoWithName";
 import YellowTitleHeader from "@components/header/YellowTitleHeader";
 import MyTreasureCard from "./_components/MyTreasureCard";
 import CardItem from "@components/listCard/CardItem";
+import LogoutBtn from "@components/logoutBtn/LogoutBtn";
 const MyTreasurePage = () => {
   return (
     <S.MyTreasureWrapper>
@@ -21,6 +22,9 @@ const MyTreasurePage = () => {
         <CardItem />
         <CardItem />
       </MyTreasureCard>
+      <S.BtnWrapper>
+        <LogoutBtn />
+      </S.BtnWrapper>
     </S.MyTreasureWrapper>
   );
 };

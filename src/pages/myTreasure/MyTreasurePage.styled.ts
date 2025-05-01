@@ -6,3 +6,10 @@ export const MyTreasureWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+export const BtnWrapper = styled.div`
+  margin-top: 30px;
+  display: flex;
+  width: 88.5%;
+  justify-content: flex-end;
+`;

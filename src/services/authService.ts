@@ -16,6 +16,6 @@ export const checkUserExists = async (
   return {
     id: doc.id,
     ...doc.data(),
-    createdAt: doc.data().createdAt.toDate(),
+    // createdAt: doc.data().createdAt.toDate(),
   } as IUser;
 };
