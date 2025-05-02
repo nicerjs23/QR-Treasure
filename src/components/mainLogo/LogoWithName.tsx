@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import Logo from "@components/mainLogo/Logo";
+import { useAuthStore } from "@store/authStore";
 
 const LogoWithName = () => {
-  const team = 7;
-  const name = "이동건";
+  const user = useAuthStore((state) => state.user);
+
   return (
     <LogoWithNameWrapper>
       <Logo />
       <NameText>
-        {team}조 {name}님
+        {user
+          ? `${user.team || "0조"}조 ${user.username || "이름없음"}님`
+          : "0조 이름없음"}
       </NameText>
     </LogoWithNameWrapper>
   );

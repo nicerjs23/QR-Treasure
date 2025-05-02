@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useQRStore } from "@store/qrStore";
+import { useNavigate } from "react-router-dom";
 
 // components
 import LogoWithName from "@components/mainLogo/LogoWithName";
@@ -7,17 +9,25 @@ import HomeBtn from "./_components/HomeBtn";
 
 import findTreasureBox from "@assets/images/findTreasureBox.png";
 const FindQRTreasurePage = () => {
+  const navigate = useNavigate();
+  const { treasure, clearQRData } = useQRStore();
+
+  // 홈으로 이동 시 QR 데이터 초기화
+  const handleGoHome = () => {
+    clearQRData(); // QR Store 데이터 초기화
+    navigate("/home");
+  };
   return (
     <FindQRTreasurePageWrapper>
       <LogoWithName />
       <ImgAndCardWrapper>
         <FindTreasureBox src={findTreasureBox} />
         <QRTreasureCard
-          cardHeaderNum={27}
+          cardHeaderNum={treasure?.treasureKey || 0}
           cardBodyText="이미 스캔된 QR입니다."
         />
       </ImgAndCardWrapper>
-      <HomeBtn />
+      <HomeBtn onClick={handleGoHome} />
     </FindQRTreasurePageWrapper>
   );
 };
