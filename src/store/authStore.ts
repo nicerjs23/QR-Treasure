@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { IUser } from "../types/user";
-import { checkUserExists } from "@services/authService";
+import { checkUserExists, refreshUserData } from "@services/authService";
 
 // 인증 상태 타입 정의
 interface AuthState {
@@ -10,6 +10,7 @@ interface AuthState {
   error: string | null;
   login: (username: string) => Promise<void>;
   logout: () => void;
+  refreshUser: () => Promise<void>; // 사용자 정보 새로고침 액션 추가
   clearError: () => void;
   setError: (error: string | null) => void; // setError 추가
 }
@@ -17,7 +18,7 @@ interface AuthState {
 // Zustand 스토어 생성
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       isLoading: false,
       error: null,
@@ -49,6 +50,26 @@ export const useAuthStore = create<AuthState>()(
 
       // 로그아웃 액션
       logout: () => set({ user: null }),
+
+      // 사용자 정보 새로고침 액션
+      refreshUser: async () => {
+        const { user } = get();
+        if (!user) return;
+
+        try {
+          set({ isLoading: true });
+          const refreshedUser = await refreshUserData(user.id);
+
+          if (refreshedUser) {
+            set({ user: refreshedUser, isLoading: false });
+          } else {
+            set({ isLoading: false });
+          }
+        } catch (err) {
+          set({ isLoading: false });
+          console.error("사용자 정보 새로고침 실패:", err);
+        }
+      },
 
       // 에러 초기화
       clearError: () => set({ error: null }),

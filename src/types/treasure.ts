@@ -2,7 +2,8 @@ export type TreasureType = "SCORE" | "PRIZE" | "PENALTY";
 //보물 타입설정 유니온타입!
 
 export interface BaseTreasure {
-  id: number; // 보물 고유 ID -랜덤번호 부여하고싶음
+  // id: number; // 보물 고유 ID -랜덤번호 부여하고싶음 삭제함 문서id로대체
+  docId?: string; // 선택적 필드로 추가
   treasureKey: number; // 1~보물개수까지의 순번 (보물 목록 map key, UI 노출용)
   description: string; // 보물 설명
   isFind: boolean; // 발견 여부
@@ -14,7 +15,7 @@ export interface BaseTreasure {
 // 점수 보물
 export interface ScoreTreasure extends BaseTreasure {
   type: "SCORE";
-  points: number; // 점수
+  score: number; // 점수
 }
 
 // 상품 보물

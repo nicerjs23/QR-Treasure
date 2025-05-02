@@ -14,7 +14,7 @@ const QRRedirect = () => {
   const { setTreasureId, fetchTreasure } = useQRStore();
 
   useEffect(() => {
-    const id = Number(params.get("id"));
+    const id = params.get("id");
     if (!id) {
       navigate("/home");
       return;

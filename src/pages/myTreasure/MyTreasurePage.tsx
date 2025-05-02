@@ -14,29 +14,37 @@ import CardItem from "@components/listCard/CardItem";
 import LogoutBtn from "@components/logoutBtn/LogoutBtn";
 const MyTreasurePage = () => {
   const user = useAuthStore((state) => state.user);
-  // 변수명은 myTreasures로!
+  const refreshUser = useAuthStore((state) => state.refreshUser);
+  // 내가 찾은 보물 정보 리스트
   const [myTreasures, setMyTreasures] = useState<ITreasure[]>([]);
 
+  // 페이지 진입 시 사용자 정보 새로고침
   useEffect(() => {
+    refreshUser();
+  }, []);
+
+  useEffect(() => {
+    // 유저가 없거나 찾은 보물이 없으면 빈 배열로 초기화
     if (!user || !user.findTreasures || user.findTreasures.length === 0) {
       setMyTreasures([]);
       return;
     }
 
+    // Firestore에서 내가 찾은 보물 정보 모두 가져오기
     const fetchTreasures = async () => {
       const treasures: ITreasure[] = [];
-      const chunkSize = 10;
-      for (let i = 0; i < user.findTreasures.length; i += chunkSize) {
-        const chunk = user.findTreasures.slice(i, i + chunkSize);
-        const chunkDocs = await Promise.all(
-          chunk.map(async (id) => {
-            const docRef = doc(db, "treasures", id.toString());
-            const docSnap = await getDoc(docRef);
-            return docSnap.exists() ? (docSnap.data() as ITreasure) : null;
-          })
-        );
-        treasures.push(...(chunkDocs.filter(Boolean) as ITreasure[]));
+      for (const docId of user.findTreasures) {
+        const docRef = doc(db, "treasures", docId);
+        const docSnap = await getDoc(docRef);
+        if (!docSnap.exists()) {
+          console.log(`Document ${docId} does not exist`);
+          continue;
+        }
+        const data = docSnap.data();
+        console.log("Fetched treasure:", data);
+        treasures.push(data as ITreasure);
       }
+      console.log("Found treasures:", treasures);
       setMyTreasures(treasures);
     };
 
@@ -59,12 +67,11 @@ const MyTreasurePage = () => {
         ) : (
           myTreasures.map((treasure, idx) => (
             <CardItem
-              key={treasure.id}
+              key={idx} // treasure.treasureKey가 없을 수 있으므로 idx로 대체
               leftValue={idx + 1}
-              centerValue={treasure.description}
+              centerValue={treasure.description || "보물 설명 없음"} // 기본값 제공
               rightValue={user ? user.username : "이름 없음"}
               isRed={treasure.type === "PENALTY"}
-              isFind={true}
             />
           ))
         )}

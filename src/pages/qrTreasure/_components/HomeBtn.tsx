@@ -1,14 +1,11 @@
 import styled from "styled-components";
 
-import { useNavigate } from "react-router-dom";
-
-const HomeBtn = () => {
-  const navigate = useNavigate();
-  return (
-    <HomeBtnWrapper onClick={() => navigate("/home")}>
-      홈으로 가기
-    </HomeBtnWrapper>
-  );
+// onClick 프롭 추가
+interface HomeBtnProps {
+  onClick: () => void;
+}
+const HomeBtn = ({ onClick }: HomeBtnProps) => {
+  return <HomeBtnWrapper onClick={onClick}>홈으로 가기</HomeBtnWrapper>;
 };
 
 export default HomeBtn;
