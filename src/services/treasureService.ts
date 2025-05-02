@@ -2,7 +2,6 @@ import { db } from "../firebase";
 import {
   doc,
   getDoc,
-  updateDoc,
   arrayUnion,
   increment,
   query,
@@ -11,7 +10,7 @@ import {
   getDocs,
   runTransaction,
 } from "firebase/firestore";
-import { ITreasure, ScoreTreasure } from "../types/treasure";
+import { ITreasure } from "../types/treasure";
 import { IUser } from "../types/user";
 
 /**
