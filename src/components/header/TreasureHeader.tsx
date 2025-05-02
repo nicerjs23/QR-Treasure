@@ -2,23 +2,39 @@ import styled from "styled-components";
 import { useState, useEffect } from "react"; // useEffect 추가
 import HeaderKeyIcon from "@assets/icons/headerKeyIcon.svg";
 
-const TreasureHeader = () => {
-  const [foundCount] = useState<number>(10); // setFoundCount 제거 배포오류나서 아래코드주석함
-  const [totalCount] = useState<number>(50); // setTotalCount 제거
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase"; // firebase 설정 경로에 맞게 수정
 
-  //const [foundCount, setFoundCount] = useState<number>(10); // 초기값 설정
-  //const [totalCount, setTotalCount] = useState<number>(50); // 기본값 설정
-  // 나중에 Firebase에서 데이터 가져오는 로직을 추가할 수 있습니다.
+const TreasureHeader = () => {
+  const [foundCount, setFoundCount] = useState<number>(0);
+  const [totalCount, setTotalCount] = useState<number>(0);
+
+  // Firestore에서 보물 데이터 가져오기
   useEffect(() => {
-    // 예: Firebase에서 데이터 가져오기
-    const fetchData = async () => {
-      // Firebase에서 foundCount와 totalCount를 가져오는 로직
-      // setFoundCount(가져온 값);
-      // setTotalCount(가져온 값);
+    const fetchTreasureData = async () => {
+      try {
+        // 전체 보물 개수 가져오기
+        const treasuresCollection = collection(db, "treasures");
+        const treasuresSnapshot = await getDocs(treasuresCollection);
+        const total = treasuresSnapshot.size;
+        setTotalCount(total);
+
+        // 찾은 보물 개수 가져오기
+        const foundTreasuresQuery = query(
+          collection(db, "treasures"),
+          where("isFind", "==", true)
+        );
+        const foundTreasuresSnapshot = await getDocs(foundTreasuresQuery);
+        const found = foundTreasuresSnapshot.size;
+        setFoundCount(found);
+      } catch (error) {
+        console.error("보물 데이터 가져오기 실패:", error);
+        // 오류 발생 시 기본값 유지
+      }
     };
 
-    fetchData();
-  }, []); // 컴포넌트가 마운트될 때 한 번만 실행
+    fetchTreasureData();
+  }, []); // 컴포넌트 마운트 시 한 번만 실행
 
   // 찾은 비율 계산
   const foundRatio = foundCount / totalCount;
