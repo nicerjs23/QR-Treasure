@@ -32,15 +32,20 @@ const QRTreasurePage = () => {
 
   // 보물 찾기 처리 함수
   const handleFindTreasure = async () => {
-    // 이미 실행됐으면 중복 실행 방지
-    if (!user || findTreasureExecuted.current) return;
+    // 이미 실행됐거나 유저 정보가 없으면 중단
+    if (!user || findTreasureExecuted.current) {
+      console.log("이미 실행되었거나 유저 정보가 없습니다.");
+      return;
+    }
 
-    // 실행 플래그 설정
+    // 실행 플래그 설정 (중복 실행 방지)
     findTreasureExecuted.current = true;
+    console.log("보물 찾기 시작");
 
     try {
       // 보물 찾기 API 호출
       await findTreasure(user);
+      console.log("보물 찾기 완료");
 
       // 애니메이션 및 모달 표시 타이머 설정
       setTimeout(() => {
@@ -52,24 +57,25 @@ const QRTreasurePage = () => {
       }, 3000);
     } catch (error) {
       console.error("보물 찾기 실패:", error);
-      // 에러 발생 시 플래그 초기화 (재시도 가능)
-      findTreasureExecuted.current = false;
+      // 에러 발생 시에도 플래그는 유지 (중복 실행 방지)
     }
   };
 
-  // 컴포넌트 마운트 시 보물 찾기 처리 실행
+  // 컴포넌트 마운트 시 보물 찾기 처리 실행 (한 번만)
   useEffect(() => {
-    handleFindTreasure();
+    if (!findTreasureExecuted.current) {
+      handleFindTreasure();
+    }
 
-    // 컴포넌트 언마운트 시 클린업
-    return () => {
-      findTreasureExecuted.current = false;
-    };
+    // 컴포넌트 언마운트 시에는 플래그를 초기화하지 않음
+    // 이렇게 하면 StrictMode에서도 중복 실행되지 않음
   }, []);
 
   // 홈으로 이동 시 QR 데이터 초기화
   const handleGoHome = () => {
     clearQRData(); // QR Store 데이터 초기화
+    // 페이지 이동 시 플래그 초기화 (다음 QR 스캔을 위해)
+    findTreasureExecuted.current = false;
     navigate("/home");
   };
 
@@ -83,6 +89,7 @@ const QRTreasurePage = () => {
       return treasure.description;
     }
   };
+
   return (
     <S.QRTreasureWrapper>
       <LogoWithName />
