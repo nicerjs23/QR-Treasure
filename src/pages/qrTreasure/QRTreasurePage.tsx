@@ -1,6 +1,8 @@
 import * as S from "./QRTreasurePage.styled";
 
 import { useState, useEffect } from "react"; // useState와 useEffect 추가
+import { useQRStore } from "@store/qrStore";
+import { useAuthStore } from "@store/authStore";
 
 import Lottie from "lottie-react";
 import TreasureBox from "@assets/lottie/treasureBox.json";

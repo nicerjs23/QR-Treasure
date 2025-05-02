@@ -18,6 +18,13 @@ const LoginCardForm = () => {
     }
   }, [user, navigate]);
 
+  //엔터시 로그인되게
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleSubmit(event as React.FormEvent);
+    }
+  };
+
   return (
     <S.FormWrapper>
       <S.CardInput
@@ -25,6 +32,7 @@ const LoginCardForm = () => {
         placeholder="꼭 본인의 이름을 입력해주세요."
         value={username}
         onChange={handleChange}
+        onKeyDown={handleKeyDown} // 엔터 키 이벤트 핸들러 추가
         disabled={isLoading}
       />
       <S.CardButtonWrapper>

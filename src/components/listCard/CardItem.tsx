@@ -4,15 +4,21 @@ import {
   ItemBoxContentTextProps,
   CardItemWrapperProps,
 } from "./CardItem.d";
-const CardItem = ({ isFind, isRed }: CardItemProps) => {
+const CardItem = ({
+  leftValue,
+  centerValue,
+  rightValue,
+  isRed,
+  isFind,
+}: CardItemProps) => {
   return (
     <CardItemWrapper isFind={isFind}>
       <ItemNumBoxWrapper>
-        <ItemNumBox>1</ItemNumBox>
+        <ItemNumBox>{leftValue}</ItemNumBox>
       </ItemNumBoxWrapper>
       <ItemBoxContent>
-        <ItemBoxContentText isRed={isRed}>테스트 </ItemBoxContentText>
-        <InfoBox>미발견</InfoBox>
+        <ItemBoxContentText isRed={isRed}>{centerValue}</ItemBoxContentText>
+        <InfoBox>{rightValue}</InfoBox>
       </ItemBoxContent>
     </CardItemWrapper>
   );

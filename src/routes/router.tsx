@@ -11,6 +11,7 @@ import MyTreasurePage from "@pages/myTreasure/MyTreasurePage";
 import TeamLankPage from "@pages/teamLank/TeamLankPage";
 import QRTreasurePage from "@pages/qrTreasure/QRTreasurePage";
 import FindQRTreasurePage from "@pages/qrTreasure/FindQRTreasurePage";
+import QRRedirect from "@pages/qrTreasure/QRRedirect";
 
 const router = createBrowserRouter([
   // { path: "/", children: [{ path: "", element: <LoginPage /> }] },
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       { path: "", element: <LoginPage /> },
+      { path: "qr-redirect", element: <QRRedirect /> }, // QR 진입점
       {
         element: <ProtectedLayout />,
         children: [

@@ -13,3 +13,14 @@ export const BtnWrapper = styled.div`
   width: 88.5%;
   justify-content: flex-end;
 `;
+
+export const MyTreasureNone = styled.div`
+  display: flex;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+
+  ${({ theme }) => theme.fonts.big20}
+  color: ${({ theme }) => theme.colors.font.white};
+`;
