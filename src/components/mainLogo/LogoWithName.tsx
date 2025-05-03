@@ -10,7 +10,7 @@ const LogoWithName = () => {
       <Logo />
       <NameText>
         {user
-          ? `${user.team || "0조"}조 ${user.username || "이름없음"}님`
+          ? `${user.team || "X"}조 ${user.username || "이름없음"}님`
           : "0조 이름없음"}
       </NameText>
     </LogoWithNameWrapper>

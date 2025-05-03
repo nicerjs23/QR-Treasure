@@ -1,30 +1,52 @@
 import * as S from "./LoginCardForm.styled";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useLogin } from "@hooks/useLogin";
 import { useAuthStore } from "@store/authStore";
 import { useQRStore } from "@store/qrStore";
+import { isAdmin } from "@services/adminService";
 
 const LoginCardForm = () => {
   const { username, handleChange, handleSubmit, isLoading, error } = useLogin();
   const user = useAuthStore((state) => state.user);
   const { treasureId, fetchTreasure, treasure } = useQRStore();
-
+  const [checkingAdmin, setCheckingAdmin] = useState(false);
   const navigate = useNavigate();
 
   // 로그인 성공 시 처리
   useEffect(() => {
-    if (user) {
-      if (treasureId) {
-        // 바로 fetchTreasure 호출 후 treasure 상태 변경 기다림
-        fetchTreasure();
-      } else {
-        // 일반 로그인의 경우 홈으로 이동
+    const checkUserAdmin = async () => {
+      if (!user) return;
+
+      setCheckingAdmin(true);
+      try {
+        // 관리자 계정인지 확인 (비동기 방식으로 변경)
+        const adminAccess = await isAdmin(user.id);
+
+        if (adminAccess) {
+          navigate("/admin", { replace: true });
+          return;
+        }
+
+        // 일반 사용자 처리
+        if (treasureId) {
+          fetchTreasure();
+        } else {
+          navigate("/home", { replace: true });
+        }
+      } catch (error) {
+        console.error("관리자 권한 확인 오류:", error);
         navigate("/home", { replace: true });
+      } finally {
+        setCheckingAdmin(false);
       }
+    };
+
+    if (user && !checkingAdmin) {
+      checkUserAdmin();
     }
-  }, [user, navigate, treasureId, fetchTreasure]);
+  }, [user, navigate, treasureId, fetchTreasure, checkingAdmin]);
 
   // treasure 상태가 변경되면 적절한 페이지로 이동
   useEffect(() => {

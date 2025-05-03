@@ -10,6 +10,7 @@ export interface BaseTreasure {
   finderName?: string; // 발견자 이름
   timestamp?: Date; // 발견 시간
   type: TreasureType; // 보물 유형
+  customId?: string; // 직접 지정할 문서 ID (선택적)
 }
 
 // 점수 보물
