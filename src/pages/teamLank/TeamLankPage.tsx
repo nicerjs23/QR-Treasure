@@ -64,6 +64,7 @@ const TeamLankPage = () => {
             leftValue={idx + 1}
             centerValue={`${team.teamId}조`}
             rightValue={`+ ${team.totalScore}p`}
+            rank={idx + 1}
           />
         ))}
       </ListCard>

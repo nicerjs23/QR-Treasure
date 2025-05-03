@@ -4,6 +4,7 @@ interface CardItemProps {
   rightValue: string | number; // 우측(발견자, 점수 등)
   isRed?: boolean; // (선택) 강조 색상
   isFind?: boolean; // (선택) 보물 발견 여부
+  rank?: number; // (선택) 순위
 }
 
 export interface CardItemWrapperProps {
