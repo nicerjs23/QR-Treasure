@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Lottie from "lottie-react";
 export const MyTreasureWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -17,10 +17,28 @@ export const BtnWrapper = styled.div`
 export const MyTreasureNone = styled.div`
   display: flex;
   width: 100%;
-  height: 40px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  gap: 5px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
   ${({ theme }) => theme.fonts.big20}
   color: ${({ theme }) => theme.colors.font.white};
+`;
+
+export const SearchWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+`;
+
+export const SearchLottie = styled(Lottie)`
+  width: 100%;
 `;

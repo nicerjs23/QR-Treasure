@@ -1,7 +1,13 @@
 import { useLocation } from "react-router-dom";
 
 // 푸터를 숨길 경로를 배열로 정의
-const hideFooterPaths = ["/", "/qr", "/qr?id=*", "/qrfind"]; // 필요에 따라 추가
+const hideFooterPaths = [
+  "/",
+  "/qr",
+  "/qr-redirect",
+  "/qr-redirect?id=*",
+  "/qrfind",
+]; // 필요에 따라 추가
 // 예시
 // const hideFooterPatterns = ['/login', '/register', '/user/*'];
 function useFooterVisible() {
