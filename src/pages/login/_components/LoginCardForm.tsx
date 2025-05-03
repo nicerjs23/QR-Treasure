@@ -4,19 +4,36 @@ import { useEffect } from "react";
 
 import { useLogin } from "@hooks/useLogin";
 import { useAuthStore } from "@store/authStore";
+import { useQRStore } from "@store/qrStore";
 
 const LoginCardForm = () => {
   const { username, handleChange, handleSubmit, isLoading, error } = useLogin();
   const user = useAuthStore((state) => state.user);
+  const { treasureId, fetchTreasure, treasure } = useQRStore();
 
   const navigate = useNavigate();
 
-  // 로그인 성공 시 /home으로 이동
+  // 로그인 성공 시 처리
   useEffect(() => {
     if (user) {
-      navigate("/home", { replace: true });
+      if (treasureId) {
+        // 바로 fetchTreasure 호출 후 treasure 상태 변경 기다림
+        fetchTreasure();
+      } else {
+        // 일반 로그인의 경우 홈으로 이동
+        navigate("/home", { replace: true });
+      }
     }
-  }, [user, navigate]);
+  }, [user, navigate, treasureId, fetchTreasure]);
+
+  // treasure 상태가 변경되면 적절한 페이지로 이동
+  useEffect(() => {
+    if (user && treasure) {
+      treasure.isFind
+        ? navigate("/qrfind", { replace: true })
+        : navigate("/qr", { replace: true });
+    }
+  }, [user, treasure, navigate]);
 
   //엔터시 로그인되게
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -24,7 +41,6 @@ const LoginCardForm = () => {
       handleSubmit(event as React.FormEvent);
     }
   };
-
   return (
     <S.FormWrapper>
       <S.CardInput

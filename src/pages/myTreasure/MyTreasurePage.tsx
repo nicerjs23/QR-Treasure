@@ -8,6 +8,8 @@ import useRefreshable from "@hooks/useRefreshable"; // 훅 임포트
 
 import { ITreasure } from "../../types/treasure"; // 타입은 ITreasure
 
+import search from "@assets/lottie/search.json";
+
 import LogoWithName from "@components/mainLogo/LogoWithName";
 import YellowTitleHeader from "@components/header/YellowTitleHeader";
 import MyTreasureCard from "./_components/MyTreasureCard";
@@ -69,7 +71,12 @@ const MyTreasurePage = () => {
         isRefreshing={isRefreshing} // 새로고침 상태 전달
       >
         {myTreasures.length === 0 ? ( // 보물이 없을 경우
-          <S.MyTreasureNone>찾은 보물이 없습니다!</S.MyTreasureNone>
+          <S.MyTreasureNone>
+            찾은 보물이 없습니다!
+            <S.SearchWrapper>
+              <S.SearchLottie animationData={search} loop={true} />
+            </S.SearchWrapper>
+          </S.MyTreasureNone>
         ) : (
           myTreasures.map((treasure, idx) => (
             <CardItem
