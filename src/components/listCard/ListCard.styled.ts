@@ -35,10 +35,10 @@ export const F5Btn = styled.button`
   display: flex;
   width: 18px;
   height: 18px;
-
+  cursor: pointer; // 커서 추가
   img {
     &.animate {
-      animation: ${rotate} 1s forwards;
+      animation: ${rotate} 1s linear forwards; // linear 타이밍 함수 추가
     }
   }
 `;

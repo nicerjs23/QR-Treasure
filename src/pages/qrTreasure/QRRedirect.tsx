@@ -9,35 +9,32 @@ import { useQRStore } from "@store/qrStore";
  * (로그인 체크는 ProtectedLayout에서만 처리)
  */
 const QRRedirect = () => {
-  const [params] = useSearchParams();
-  const navigate = useNavigate();
-  const { setTreasureId, fetchTreasure } = useQRStore();
+  const [params] = useSearchParams(); // URL의 쿼리 파라미터를 가져옴
+  const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
+  const { setTreasureId, fetchTreasure, treasure } = useQRStore(); // QR 스토어에서 상태와 액션을 가져옴
 
   useEffect(() => {
-    const id = params.get("id");
+    const id = params.get("id"); // 쿼리 파라미터에서 보물 ID를 가져옴
     if (!id) {
-      navigate("/home");
+      navigate("/home"); // ID가 없으면 홈으로 이동
       return;
     }
 
-    setTreasureId(id);
+    setTreasureId(id); // 보물 ID를 스토어에 저장
+    fetchTreasure(); // 보물 정보를 가져오는 함수 호출
+  }, [params, navigate, setTreasureId, fetchTreasure]); // 의존성 배열
 
-    // 보물 정보 fetch 후 상태에 따라 분기
-    (async () => {
-      await fetchTreasure();
-      // fetchTreasure 후 store의 treasure를 확인
-      setTimeout(() => {
-        const treasure = useQRStore.getState().treasure;
-        if (treasure?.isFind) {
-          navigate("/qrfind", { replace: true });
-        } else {
-          navigate("/qr", { replace: true });
-        }
-      }, 0);
-    })();
-  }, [params, navigate, setTreasureId, fetchTreasure]);
+  // treasure 상태가 변경될 때 라우팅 처리
+  useEffect(() => {
+    if (treasure) {
+      // treasure 상태가 존재할 경우
+      treasure.isFind
+        ? navigate("/qrfind", { replace: true }) // 보물이 발견되었으면 /qrfind로 이동
+        : navigate("/qr", { replace: true }); // 발견되지 않았으면 /qr로 이동
+    }
+  }, [treasure, navigate]); // treasure 상태가 변경될 때마다 실행
 
-  return <div>리다이렉트 중...</div>;
+  return <div>리다이렉트 중...</div>; // 로딩 중 메시지
 };
 
 export default QRRedirect;
