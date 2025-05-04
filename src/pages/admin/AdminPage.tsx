@@ -8,32 +8,9 @@ import {
   createUsers,
   createTreasures,
 } from "@services/adminService";
-
-// examData를 기본값으로 import
-import {
-  teamsData as defaultTeamsData,
-  usersData as defaultUsersData,
-  treasuresData as defaultTreasuresData,
-} from "@data/examData";
+//import { teamsData, usersData, treasuresData } from "@data/data";
+import { teamsData, usersData, treasuresData } from "@data/examData";
 import * as S from "./AdminPage.styled";
-
-// 데이터 변수 초기화 (명시적으로 any 타입으로 선언)
-let teamsData: any[] = [...defaultTeamsData];
-let usersData: any[] = [...defaultUsersData];
-let treasuresData: any[] = [...defaultTreasuresData];
-
-// 실제 데이터 로드 시도 (비동기적으로)
-import("@data/data")
-  .then((data) => {
-    console.log("실제 데이터 로드 성공");
-    // 타입 단언을 사용하여 할당
-    teamsData = [...(data.teamsData as any[])];
-    usersData = [...(data.usersData as any[])];
-    treasuresData = [...(data.treasuresData as any[])];
-  })
-  .catch((error) => {
-    console.log("실제 데이터 로드 실패, 기본 데이터 사용", error);
-  });
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -48,20 +25,15 @@ const AdminPage = () => {
   useEffect(() => {
     const checkAdminAccess = async () => {
       if (!user) {
-        console.log("사용자 정보 없음, 로그인 페이지로 이동");
         navigate("/", { replace: true });
         return;
       }
 
       try {
         const adminAccess = await isAdmin(user.id);
-        console.log("관리자 권한 확인 결과:", adminAccess);
-
         if (!adminAccess) {
-          console.log("관리자 아님, 홈으로 이동");
           navigate("/home", { replace: true });
         } else {
-          console.log("관리자 확인됨");
           setIsAdminChecked(true);
         }
       } catch (error) {
@@ -79,7 +51,7 @@ const AdminPage = () => {
     setMessage("팀 데이터 생성 중...");
 
     try {
-      const count = await createTeams(teamsData);
+      const count = await createTeams(teamsData as any);
       setMessage(`팀 데이터 생성 완료: ${count}개 성공`);
     } catch (error) {
       console.error("팀 생성 오류:", error);
@@ -95,7 +67,7 @@ const AdminPage = () => {
     setMessage("사용자 데이터 생성 중...");
 
     try {
-      const count = await createUsers(usersData);
+      const count = await createUsers(usersData as any);
       setMessage(`사용자 데이터 생성 완료: ${count}명 성공`);
     } catch (error) {
       console.error("사용자 생성 오류:", error);
@@ -111,7 +83,7 @@ const AdminPage = () => {
     setMessage("보물 데이터 생성 중...");
 
     try {
-      const count = await createTreasures(treasuresData);
+      const count = await createTreasures(treasuresData as any);
       setMessage(`보물 데이터 생성 완료: ${count}개 성공`);
     } catch (error) {
       console.error("보물 생성 오류:", error);
