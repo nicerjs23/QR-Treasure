@@ -8,8 +8,32 @@ import {
   createUsers,
   createTreasures,
 } from "@services/adminService";
-import { teamsData, usersData, treasuresData } from "@data/data";
+
+// examData를 기본값으로 import
+import {
+  teamsData as defaultTeamsData,
+  usersData as defaultUsersData,
+  treasuresData as defaultTreasuresData,
+} from "@data/examData";
 import * as S from "./AdminPage.styled";
+
+// 데이터 변수 초기화 (명시적으로 any 타입으로 선언)
+let teamsData: any[] = [...defaultTeamsData];
+let usersData: any[] = [...defaultUsersData];
+let treasuresData: any[] = [...defaultTreasuresData];
+
+// 실제 데이터 로드 시도 (비동기적으로)
+import("@data/data")
+  .then((data) => {
+    console.log("실제 데이터 로드 성공");
+    // 타입 단언을 사용하여 할당
+    teamsData = [...(data.teamsData as any[])];
+    usersData = [...(data.usersData as any[])];
+    treasuresData = [...(data.treasuresData as any[])];
+  })
+  .catch((error) => {
+    console.log("실제 데이터 로드 실패, 기본 데이터 사용", error);
+  });
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -24,15 +48,20 @@ const AdminPage = () => {
   useEffect(() => {
     const checkAdminAccess = async () => {
       if (!user) {
+        console.log("사용자 정보 없음, 로그인 페이지로 이동");
         navigate("/", { replace: true });
         return;
       }
 
       try {
         const adminAccess = await isAdmin(user.id);
+        console.log("관리자 권한 확인 결과:", adminAccess);
+
         if (!adminAccess) {
+          console.log("관리자 아님, 홈으로 이동");
           navigate("/home", { replace: true });
         } else {
+          console.log("관리자 확인됨");
           setIsAdminChecked(true);
         }
       } catch (error) {
@@ -124,7 +153,7 @@ const AdminPage = () => {
       <S.AdminSection>
         <S.SectionTitle>사전 정의된 팀 (미리보기)</S.SectionTitle>
         <S.DataPreview>
-          {teamsData.map((team) => (
+          {teamsData.map((team: any) => (
             <S.DataItem key={team.teamId}>
               팀 {team.teamId} (초기 점수: {team.totalScore})
             </S.DataItem>
@@ -135,7 +164,7 @@ const AdminPage = () => {
       <S.AdminSection>
         <S.SectionTitle>사전 정의된 사용자 (미리보기)</S.SectionTitle>
         <S.DataPreview>
-          {usersData.map((user, index) => (
+          {usersData.map((user: any, index: number) => (
             <S.DataItem key={index}>
               {user.username} (팀 {user.team}){user.isAdmin && " - 관리자"}
             </S.DataItem>
@@ -146,7 +175,7 @@ const AdminPage = () => {
       <S.AdminSection>
         <S.SectionTitle>사전 정의된 보물 (미리보기)</S.SectionTitle>
         <S.DataPreview>
-          {treasuresData.map((treasure) => (
+          {treasuresData.map((treasure: any) => (
             <S.DataItem key={treasure.treasureKey}>
               {treasure.customId && ` [QR문서ID: ${treasure.customId}]`}#
               {treasure.treasureKey}: {treasure.description}
