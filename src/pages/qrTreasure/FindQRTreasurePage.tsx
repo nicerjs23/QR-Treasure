@@ -37,7 +37,7 @@ export default FindQRTreasurePage;
 const FindQRTreasurePageWrapper = styled.div`
   display: flex;
   width: 100%;
-  min-height: calc(100vh);
+  min-height: calc(var(--vh, 1vh) * 100);
   /* border: 5px solid red; */
   flex-direction: column;
   align-items: center;
