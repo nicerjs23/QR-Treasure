@@ -7,6 +7,7 @@ const hideFooterPaths = [
   "/qr-redirect",
   "/qr-redirect?id=*",
   "/qrfind",
+  "/admin",
 ]; // 필요에 따라 추가
 // 예시
 // const hideFooterPatterns = ['/login', '/register', '/user/*'];

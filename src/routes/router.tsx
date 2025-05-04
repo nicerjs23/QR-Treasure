@@ -12,15 +12,15 @@ import TeamLankPage from "@pages/teamLank/TeamLankPage";
 import QRTreasurePage from "@pages/qrTreasure/QRTreasurePage";
 import FindQRTreasurePage from "@pages/qrTreasure/FindQRTreasurePage";
 import QRRedirect from "@pages/qrTreasure/QRRedirect";
-
+import AdminPage from "@pages/admin/AdminPage";
 const router = createBrowserRouter([
-  // { path: "/", children: [{ path: "", element: <LoginPage /> }] },
   {
     path: "/",
     element: <DefaultLayout />,
     children: [
       { path: "", element: <LoginPage /> },
       { path: "qr-redirect", element: <QRRedirect /> }, // QR 진입점
+      { path: "admin", element: <AdminPage /> }, //관리자 페이지 추가
       {
         element: <ProtectedLayout />,
         children: [
