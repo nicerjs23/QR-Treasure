@@ -10,15 +10,20 @@ import useVh from "@hooks/useCalcVh";
 import { RouterProvider } from "react-router-dom";
 import router from "@routes/router";
 
+// 추가: 파이어베이스 인증 프로바이더
+import { AuthProvider } from "@providers/AuthProvider";
+
 function App() {
   useVh();
 
   return (
     <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <RouterProvider router={router} />
-  </ThemeProvider>
-  )
+      <GlobalStyle />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;

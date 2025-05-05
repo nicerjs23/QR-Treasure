@@ -15,7 +15,8 @@ import { ITeam } from "../types/team";
  * 팀 객체에 유저 추가
  * @param user 추가할 유저 정보
  */
-const addUserToTeam = async (user: IUser): Promise<void> => {
+// addUserToTeam을 내보내기 함수로 변경
+export const addUserToTeam = async (user: IUser): Promise<void> => {
   try {
     // 팀 ID로 팀 문서 찾기 (teamId 필드로 쿼리)
     const teamsQuery = query(
@@ -53,7 +54,7 @@ const addUserToTeam = async (user: IUser): Promise<void> => {
   }
 };
 
-// Firestore에서 username으로 사용자 존재 확인
+// checkUserExists 함수에서 addUserToTeam 호출 제거
 export const checkUserExists = async (
   username: string
 ): Promise<IUser | null> => {
@@ -69,9 +70,7 @@ export const checkUserExists = async (
     ...doc.data(),
   } as IUser;
 
-  // 사용자가 속한 팀에 멤버로 추가
-  await addUserToTeam(user);
-
+  // 팀 추가 로직 제거 (이제 authStore에서 처리)
   return user;
 };
 // 사용자 ID로 최신 사용자 정보 가져오기
