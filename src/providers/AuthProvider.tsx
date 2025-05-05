@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, ReactNode } from "react";
 import { useAuthStore } from "@store/authStore";
 import { auth } from "../firebase";
-import { signInAnonymously, signOut, onAuthStateChanged } from "firebase/auth";
+import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 // 인증 컨텍스트 정의
 interface AuthContextType {
