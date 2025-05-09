@@ -53,7 +53,11 @@ const TreasureListPage = () => {
           <CardItem
             key={treasure.treasureKey}
             leftValue={treasure.treasureKey}
-            centerValue={treasure.description}
+            centerValue={
+              treasure.type === "PENALTY" && !treasure.isFind // 수정된 부분
+                ? "벌칙은 비밀 ㅋ"
+                : treasure.description
+            }
             rightValue={
               treasure.isFind ? treasure.finderName || "미발견" : "미발견"
             }
