@@ -110,7 +110,10 @@ const QRTreasurePage = () => {
       {showModal && (
         <S.Modal>
           <div style={{ width: "100%", height: "50px" }} />
-          <TreasureInfoCard text={getTreasureDescription()} />
+          <TreasureInfoCard
+            text={getTreasureDescription()}
+            isPenalty={treasure?.type === "PENALTY"}
+          />
           <HomeBtn onClick={handleGoHome} />
         </S.Modal>
       )}

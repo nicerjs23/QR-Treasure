@@ -10,7 +10,7 @@ import {
 } from "@services/adminService";
 
 //로컬에서 활성화
-// import { teamsData, usersData, treasuresData } from "@data/data";
+//import { teamsData, usersData, treasuresData } from "@data/data";
 
 //배포시 활성화
 import { teamsData, usersData, treasuresData } from "@data/examData";
